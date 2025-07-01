@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { graphql, loadQuery, usePreloadedQuery } from "react-relay";
 import type { routesQuery } from "../utils/relay/__generated__/routesQuery.graphql";
+import RepoSearch from "@/RepoSearch";
 
 const INDEX_QUERY = graphql`
   query routesQuery {
@@ -30,6 +31,7 @@ function App() {
 	return (
 		<div>
 			<h1>Hello, {data.viewer.name}</h1>
+			<RepoSearch />
 		</div>
 	);
 }

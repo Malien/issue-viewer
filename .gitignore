@@ -7,3 +7,4 @@ dist-ssr
 __generated__
 
 .env
+.nvimrc.lua
