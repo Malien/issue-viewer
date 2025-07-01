@@ -13,6 +13,7 @@ import type {
 import debounce from "./lib/debounce";
 import { cn } from "./lib/utils";
 import { Link, useNavigate } from "@tanstack/react-router";
+import { Star } from "lucide-react";
 
 export default function RepoSearch() {
 	const [searchQuery, setSearchQuery] = useState("");
@@ -101,7 +102,7 @@ function RepoSearchResult({ repo }: { repo: RepoNode }) {
 	return (
 		<CommandItem
 			value={repo.nameWithOwner}
-			className="grid grid-cols-[--spacing(6)_1fr] gap-2 px-2 py-1"
+			className="grid grid-cols-[--spacing(6)_1fr_auto] gap-2 px-2 py-1"
 			asChild
 			onSelect={() =>
 				navigate({
@@ -117,10 +118,11 @@ function RepoSearchResult({ repo }: { repo: RepoNode }) {
 					className="row-1 col-1 rounded-sm"
 				/>
 				<div className="row-1 col-2">{repo.nameWithOwner}</div>
+                <div className="row-1 col-3 flex gap-1 items-center">{new Intl.NumberFormat(undefined).format(repo.stargazerCount)} <Star fill="orange" stroke="orange" /></div>
 				<div
 					dangerouslySetInnerHTML={{ __html: repo.shortDescriptionHTML }}
-					className="row-2 col-span-2"
-				></div>
+					className="row-2 col-span-3"
+				/>
 			</Link>
 		</CommandItem>
 	);
