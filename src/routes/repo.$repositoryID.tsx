@@ -60,9 +60,9 @@ function RepoRoute() {
 				<Suspense fallback="Loading">
 					<RepoHeader repo={data.node.repo} />
 				</Suspense>
-                <Suspense>
-                    <Contributors repo={data.node.repo} />
-                </Suspense>
+				<Suspense>
+					<Contributors repo={data.node.repo} />
+				</Suspense>
 				<h2 className="mt-4 text-2xl">Issues</h2>
 			</aside>
 		</div>
@@ -139,7 +139,7 @@ const repoContributorsFragment = graphql`
 function Contributors(props: { repo: repoContributorsFragment$key }) {
 	const { collaborators } = useFragment(repoContributorsFragment, props.repo);
 
-    if (!collaborators) return null;
+	if (!collaborators) return null;
 	const effectiveContributors = collaborators.nodes?.filter((node) => !!node);
 	if (!effectiveContributors || effectiveContributors.length === 0) {
 		// Silently skip rendering contributors if there are none.
@@ -153,11 +153,11 @@ function Contributors(props: { repo: repoContributorsFragment$key }) {
 				{effectiveContributors.map((contributor) => (
 					<ContributorCircle key={contributor.id} user={contributor} />
 				))}
-                {collaborators.totalCount > effectiveContributors.length && (
-                    <div className="bg-indigo-600 text-white font-bold rounded-full flex text-sm items-center justify-center">
-                        +{collaborators.totalCount - effectiveContributors.length}
-                    </div>
-                )}
+				{collaborators.totalCount > effectiveContributors.length && (
+					<div className="bg-indigo-600 text-white font-bold rounded-full flex text-sm items-center justify-center">
+						+{collaborators.totalCount - effectiveContributors.length}
+					</div>
+				)}
 			</div>
 		</>
 	);
@@ -184,10 +184,10 @@ function ContributorCircle({
 	return (
 		<a
 			className="flex items-center gap-2 rounded-full"
-            // A more pleasing hover tooltip would be nice. This will suffice for now.
+			// A more pleasing hover tooltip would be nice. This will suffice for now.
 			title={displayName}
-            href={`https://github.com/${login}`}
-            target="_blank"
+			href={`https://github.com/${login}`}
+			target="_blank"
 		>
 			<img
 				src={avatarUrl}

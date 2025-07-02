@@ -9,7 +9,7 @@ import { graphql, useFragment, useLazyLoadQuery } from "react-relay";
 import type { RepoSearchQuery } from "./utils/relay/__generated__/RepoSearchQuery.graphql";
 import debounce from "./lib/debounce";
 import { cn } from "./lib/utils";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { Star } from "lucide-react";
 import type { RepoSearchResultFragment$key } from "./utils/relay/__generated__/RepoSearchResultFragment.graphql";
 
@@ -20,8 +20,12 @@ export default function RepoSearch() {
 		[],
 	);
 	const query = useDeferredValue(searchQuery);
+	const router = useRouter();
 
 	function handleSearchChange(newQuery: string) {
+		// Preload JS right when user intents to search
+		router.loadRouteChunk(router.routesByPath["/repo/$repositoryID"]);
+
 		if (newQuery === "") {
 			// Skip the delay, and clear the search query immediately
 			debouncedSetSearchQuery.clear();
@@ -97,12 +101,12 @@ function RepoSearchResult(props: { repo: RepoSearchResultFragment$key }) {
 			value={repo.nameWithOwner}
 			className="grid grid-cols-[--spacing(6)_1fr_auto] gap-2 px-2 py-1"
 			asChild
-			onSelect={() =>
+			onSelect={() => {
 				navigate({
 					to: "/repo/$repositoryID",
 					params: { repositoryID: repo.id },
 				})
-			}
+            }}
 		>
 			<Link to="/repo/$repositoryID" params={{ repositoryID: repo.id }}>
 				<img
