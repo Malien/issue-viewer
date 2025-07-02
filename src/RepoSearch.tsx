@@ -5,15 +5,13 @@ import {
 	CommandItem,
 	CommandList,
 } from "./components/ui/command";
-import { graphql, useLazyLoadQuery } from "react-relay";
-import type {
-	RepoSearchQuery,
-	RepoSearchQuery$data,
-} from "./utils/relay/__generated__/RepoSearchQuery.graphql";
+import { graphql, useFragment, useLazyLoadQuery } from "react-relay";
+import type { RepoSearchQuery } from "./utils/relay/__generated__/RepoSearchQuery.graphql";
 import debounce from "./lib/debounce";
 import { cn } from "./lib/utils";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Star } from "lucide-react";
+import type { RepoSearchResultFragment$key } from "./utils/relay/__generated__/RepoSearchResultFragment.graphql";
 
 export default function RepoSearch() {
 	const [searchQuery, setSearchQuery] = useState("");
@@ -50,14 +48,7 @@ const RepoSearchQuery = graphql`
                 node {
                     ... on Repository @alias(as: "repo") {
                         id
-                        nameWithOwner
-                        shortDescriptionHTML
-                        stargazerCount
-                        owner {
-                            id
-                            login
-                            avatarUrl
-                        }
+                        ...RepoSearchResultFragment
                     }
                 }
             }
@@ -83,20 +74,22 @@ function SearchResults({
 	);
 }
 
-type EdgeNode<
-	T extends
-		| {
-				readonly edges:
-					| readonly ({ readonly node: unknown } | null | undefined)[]
-					| null
-					| undefined;
-		  }
-		| null
-		| undefined,
-> = (((T & {})["edges"] & {})[number] & {})["node"] & {};
-type RepoNode = EdgeNode<RepoSearchQuery$data["search"]>["repo"] & {};
+const RepoSearchResultFragment = graphql`
+    fragment RepoSearchResultFragment on Repository {
+        id
+        nameWithOwner
+        shortDescriptionHTML
+        stargazerCount
+        owner {
+            id
+            login
+            avatarUrl
+        }
+    }
+`;
 
-function RepoSearchResult({ repo }: { repo: RepoNode }) {
+function RepoSearchResult(props: { repo: RepoSearchResultFragment$key }) {
+	const repo = useFragment(RepoSearchResultFragment, props.repo);
 	const navigate = useNavigate();
 
 	return (
@@ -118,7 +111,10 @@ function RepoSearchResult({ repo }: { repo: RepoNode }) {
 					className="row-1 col-1 rounded-sm"
 				/>
 				<div className="row-1 col-2">{repo.nameWithOwner}</div>
-                <div className="row-1 col-3 flex gap-1 items-center">{new Intl.NumberFormat(undefined).format(repo.stargazerCount)} <Star fill="orange" stroke="orange" /></div>
+				<div className="row-1 col-3 flex gap-1 items-center">
+					{new Intl.NumberFormat().format(repo.stargazerCount)}
+					<Star fill="orange" stroke="orange" />
+				</div>
 				<div
 					dangerouslySetInnerHTML={{ __html: repo.shortDescriptionHTML }}
 					className="row-2 col-span-3"

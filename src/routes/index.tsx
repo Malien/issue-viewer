@@ -3,7 +3,7 @@ import { graphql, loadQuery, usePreloadedQuery } from "react-relay";
 import type { routesQuery } from "../utils/relay/__generated__/routesQuery.graphql";
 import RepoSearch from "@/RepoSearch";
 
-const INDEX_QUERY = graphql`
+const routesQuery = graphql`
   query routesQuery {
     viewer {
       name
@@ -14,19 +14,14 @@ const INDEX_QUERY = graphql`
 export const Route = createFileRoute("/")({
 	component: App,
 	pendingComponent: () => <div>Loading...</div>,
-	loader: async ({ context: { relayEnvironment } }) => {
-		return loadQuery<routesQuery>(
-			relayEnvironment,
-			INDEX_QUERY,
-			{},
-			{ fetchPolicy: "store-and-network" },
-		);
+	async loader({ context }) {
+		return loadQuery<routesQuery>(context.relayEnvironment, routesQuery, {});
 	},
 });
 
 function App() {
 	const preloadedQuery = Route.useLoaderData();
-	const data = usePreloadedQuery<routesQuery>(INDEX_QUERY, preloadedQuery);
+	const data = usePreloadedQuery<routesQuery>(routesQuery, preloadedQuery);
 
 	return (
 		<div>
