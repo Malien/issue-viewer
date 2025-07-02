@@ -37,4 +37,15 @@ async function fetchRelay(
 export default new Environment({
 	network: Network.create(fetchRelay),
 	store: new Store(new RecordSource()),
+    missingFieldHandlers: [
+        { 
+            kind: "linked", 
+            handle(field, parentRecord, args, store) {
+                if (!parentRecord) return
+                if (parentRecord !== store.getRoot()) return;
+                if (field.name !== "node") return
+                return args?.id;
+            },
+        }
+    ]
 });
