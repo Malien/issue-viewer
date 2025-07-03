@@ -4,12 +4,12 @@ import { RelayEnvironmentProvider } from "react-relay";
 import relayEnvironment from "../utils/relay/environment";
 
 export const Route = createRootRouteWithContext<{
-	relayEnvironment: typeof relayEnvironment;
+  relayEnvironment: typeof relayEnvironment;
 }>()({
-	component: () => (
-		<RelayEnvironmentProvider environment={relayEnvironment}>
-			<Outlet />
-			<TanStackRouterDevtools />
-		</RelayEnvironmentProvider>
-	),
+  component: () => (
+    <RelayEnvironmentProvider environment={relayEnvironment}>
+      <Outlet />
+      <TanStackRouterDevtools />
+    </RelayEnvironmentProvider>
+  ),
 });

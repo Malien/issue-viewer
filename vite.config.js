@@ -8,22 +8,22 @@ import relay from "vite-plugin-relay";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [
-		TanStackRouterVite({ autoCodeSplitting: true }),
-		viteReact(),
-		tailwindcss(),
-		relay,
-	],
-	test: {
-		globals: true,
-		environment: "jsdom",
-	},
-	build: {
-		chunkSizeWarningLimit: 1000,
-	},
-	resolve: {
-		alias: {
-			"@": resolve(__dirname, "./src"),
-		},
-	},
+  plugins: [
+    TanStackRouterVite({ autoCodeSplitting: true }),
+    viteReact(),
+    tailwindcss(),
+    relay,
+  ],
+  test: {
+    globals: true,
+    environment: "jsdom",
+  },
+  build: {
+    chunkSizeWarningLimit: 1000,
+  },
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "./src"),
+    },
+  },
 });

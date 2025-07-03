@@ -1,8 +1,8 @@
 {
-	"recommendations": [
-		"biomejs.biome",
-		"graphql.vscode-graphql",
-		"graphql.vscode-graphql-syntax",
-		"meta.relay"
-	]
+  "recommendations": [
+    "biomejs.biome",
+    "graphql.vscode-graphql",
+    "graphql.vscode-graphql-syntax",
+    "meta.relay"
+  ]
 }
