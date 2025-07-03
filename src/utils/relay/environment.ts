@@ -26,6 +26,9 @@ async function fetchRelay(
        * YOUR GITHUB TOKEN WILL BE PUBLICLY AVAILABLE
        * */
       Authorization: `Bearer ${import.meta.env.VITE_GH_TOKEN}`,
+      // GitHub deprecated the curent global id format a while ago.
+      // This, otps into the new global id format.
+      "X-Github-Next-Global-ID": "1"
     },
     body: JSON.stringify({
       query: request.text,

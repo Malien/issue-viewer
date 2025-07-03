@@ -58,6 +58,7 @@ export default function RepoSearchDialog({ onSelect, ...props }: Props) {
 
 const RepoSearchDialogQuery = graphql`
   query RepoSearchDialogQuery($query: String!) {
+    # I'll skip paginating over the search results as it is not strictly required for now.
     search(query: $query, type: REPOSITORY, first: 10) {
       edges {
         node {
