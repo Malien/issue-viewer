@@ -22,6 +22,7 @@ const RepoSearchResultFragment = graphql`
 
 export default function RepoSearchResult(props: {
   repo: RepoSearchResultFragment$key;
+  onSelect?(): void;
 }) {
   const repo = useFragment(RepoSearchResultFragment, props.repo);
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ export default function RepoSearchResult(props: {
       className="grid grid-cols-[--spacing(6)_1fr_auto] gap-2 px-2 py-1"
       asChild
       onSelect={() => {
+        props.onSelect?.();
         navigate({
           to: "/repo/$repositoryID",
           params: { repositoryID: repo.id },

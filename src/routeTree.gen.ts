@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RepoRepositoryIDRouteImport } from './routes/repo.$repositoryID'
+import { Route as RepoRepositoryIDIssueIDRouteImport } from './routes/repo.$repositoryID.$issueID'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +23,39 @@ const RepoRepositoryIDRoute = RepoRepositoryIDRouteImport.update({
   path: '/repo/$repositoryID',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RepoRepositoryIDIssueIDRoute = RepoRepositoryIDIssueIDRouteImport.update({
+  id: '/$issueID',
+  path: '/$issueID',
+  getParentRoute: () => RepoRepositoryIDRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/repo/$repositoryID': typeof RepoRepositoryIDRoute
+  '/repo/$repositoryID': typeof RepoRepositoryIDRouteWithChildren
+  '/repo/$repositoryID/$issueID': typeof RepoRepositoryIDIssueIDRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/repo/$repositoryID': typeof RepoRepositoryIDRoute
+  '/repo/$repositoryID': typeof RepoRepositoryIDRouteWithChildren
+  '/repo/$repositoryID/$issueID': typeof RepoRepositoryIDIssueIDRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/repo/$repositoryID': typeof RepoRepositoryIDRoute
+  '/repo/$repositoryID': typeof RepoRepositoryIDRouteWithChildren
+  '/repo/$repositoryID/$issueID': typeof RepoRepositoryIDIssueIDRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/repo/$repositoryID'
+  fullPaths: '/' | '/repo/$repositoryID' | '/repo/$repositoryID/$issueID'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/repo/$repositoryID'
-  id: '__root__' | '/' | '/repo/$repositoryID'
+  to: '/' | '/repo/$repositoryID' | '/repo/$repositoryID/$issueID'
+  id: '__root__' | '/' | '/repo/$repositoryID' | '/repo/$repositoryID/$issueID'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  RepoRepositoryIDRoute: typeof RepoRepositoryIDRoute
+  RepoRepositoryIDRoute: typeof RepoRepositoryIDRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +74,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RepoRepositoryIDRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/repo/$repositoryID/$issueID': {
+      id: '/repo/$repositoryID/$issueID'
+      path: '/$issueID'
+      fullPath: '/repo/$repositoryID/$issueID'
+      preLoaderRoute: typeof RepoRepositoryIDIssueIDRouteImport
+      parentRoute: typeof RepoRepositoryIDRoute
+    }
   }
 }
 
+interface RepoRepositoryIDRouteChildren {
+  RepoRepositoryIDIssueIDRoute: typeof RepoRepositoryIDIssueIDRoute
+}
+
+const RepoRepositoryIDRouteChildren: RepoRepositoryIDRouteChildren = {
+  RepoRepositoryIDIssueIDRoute: RepoRepositoryIDIssueIDRoute,
+}
+
+const RepoRepositoryIDRouteWithChildren =
+  RepoRepositoryIDRoute._addFileChildren(RepoRepositoryIDRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  RepoRepositoryIDRoute: RepoRepositoryIDRoute,
+  RepoRepositoryIDRoute: RepoRepositoryIDRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

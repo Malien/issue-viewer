@@ -15,9 +15,10 @@ type Props = {
   open?: boolean;
   showCloseButton?: boolean;
   onOpenChange?(open: boolean): void;
+  onSelect?(): void;
 };
 
-export default function RepoSearchDialog(props: Props) {
+export default function RepoSearchDialog({ onSelect, ...props }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
   const debouncedSetSearchQuery = useMemo(
     () => debounce(setSearchQuery, 300),
@@ -44,7 +45,13 @@ export default function RepoSearchDialog(props: Props) {
         onValueChange={handleSearchChange}
         loading={query !== searchQuery}
       />
-      {query && <SearchResults query={query} filterQuery={searchQuery} />}
+      {query && (
+        <SearchResults
+          query={query}
+          filterQuery={searchQuery}
+          onSelect={onSelect}
+        />
+      )}
     </CommandDialog>
   );
 }
@@ -64,21 +71,27 @@ const RepoSearchDialogQuery = graphql`
   }
 `;
 
-function SearchResults({
-  query,
-  filterQuery,
-}: { query: string; filterQuery?: string }) {
+type SearchResultsProps = {
+  query: string;
+  filterQuery?: string;
+  onSelect?(): void;
+};
+
+function SearchResults({ query, filterQuery, onSelect }: SearchResultsProps) {
   const data = useLazyLoadQuery<RepoSearchDialogQuery>(RepoSearchDialogQuery, {
     query,
   });
 
   return (
-    <CommandList className={cn("p-2", query !== filterQuery && "opacity-50")}>
+    <CommandList
+      className={cn("p-2", query !== filterQuery && "opacity-50")}
+      onSelect={() => console.debug("selected")}
+    >
       {data.search.edges
         ?.map((edge) => edge?.node?.repo)
         .filter(isNotNullish)
         .map((repo) => (
-          <RepoSearchResult key={repo.id} repo={repo} />
+          <RepoSearchResult key={repo.id} repo={repo} onSelect={onSelect} />
         ))}
     </CommandList>
   );
