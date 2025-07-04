@@ -1,4 +1,4 @@
-Let's checkout out the project configuration:
+## Let's checkout out the project configuration
 - `pnpm-lock.yaml` + locked pnpm version of `packageManager` in `package.json`. Good.
 - TanstackRouter. A really good choice. I like it. `.cta.json` tells me it was initialized with create-tsrouter-app.
 - Sane tsconfig. `@/*` is setup as an src alias. Got it.
@@ -15,7 +15,9 @@ Let's checkout out the project configuration:
     - Vite v7. _Lemme check breaking changes..._ We're good.
     - Check that everything copiles/works/typeckecks. _Would be weird if it didn't._
 
-Let's begin by scratching out the design
+Honestly, that's exactly how I would've setup the new project myself. Tanstack Router + Relay fit great together.
+
+## Let's begin by scratching out the design
 
 ![Mockup design](/public/mockup.jpeg)
 
@@ -23,11 +25,10 @@ I would imagine a command-pallete centric design, ala Spotlight. And a 30/70 spl
 
 This design won't work for mobile. But I don't think it has to.
 
-Let's go:
+## Let's go:
 - `pnpm install`
 - `pnpm dev`
 - What scoped did we want for the token? Ah `repo` and `user`.
-- `Authentication: Bearer undefined` my ass. Have I tried restarting the dev server?
 
 Let's start with the command pallete. I've been using radix a lot for these kinds of components from scratch. Base-ui is gaining tracktion. But honestly let's not dwell on this a lot, and just yoink the one from chadcn/ui.
 
@@ -43,5 +44,13 @@ aaaaand I went into a zone, and banged out the rest of the project. I don't thin
 - Utilize new-ish `@alias`, instead of matching on `__typename`. In my experience it generates much better type definitions.
 - Tanstack router's default intent-based preloading is a godsend
 - Get confused why publicly available repo information fails the permission check (see `Contributors.tsx`)
+- Thanks to the Remix/ReactRouter team for comming up with the nested routes pattern. I will be using and abusing it immensely in this project with Tanstack Router.
 
-Other than those, it was a smooth sailing.
+Overall it was a smooth sailing.
+
+## Possible improvements
+
+- Virtualize issue and discussion lists
+- Make a page more lively with subtle reveal animations / page transitions
+- Cover a couple of interactions with UI tests
+- Add ability to interact with the page. Make so that the app can not just read, but also write data. Although this was not required, but this would've been a logical next step in order to asses candidate's ability to work with mutations and optimistic updates.
