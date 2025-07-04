@@ -2,6 +2,7 @@ import { Command as CommandPrimitive } from "cmdk";
 import { Loader, SearchIcon } from "lucide-react";
 
 import {
+  CloseButton,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -33,7 +34,6 @@ type Props = ComponentProps<typeof Dialog> & {
   title?: string;
   description?: string;
   className?: string;
-  showCloseButton?: boolean;
   shouldFilter?: boolean;
 };
 
@@ -42,7 +42,6 @@ export function CommandDialog({
   description = "Search for a command to run...",
   children,
   className,
-  showCloseButton,
   shouldFilter,
   ...props
 }: Props) {
@@ -54,10 +53,7 @@ export function CommandDialog({
       </DialogHeader>
       <DialogPortal>
         <DialogOverlay />
-        <DialogContent
-          className={cn("overflow-hidden p-0", className)}
-          showCloseButton={showCloseButton}
-        >
+        <DialogContent className={cn("overflow-hidden p-0", className)}>
           <Command
             className="[&_[cmdk-group-heading]]:text-muted-foreground **:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
             shouldFilter={shouldFilter}
@@ -72,9 +68,15 @@ export function CommandDialog({
 
 type InputProps = ComponentProps<typeof CommandPrimitive.Input> & {
   loading?: boolean;
+  showCloseButton?: boolean;
 };
 
-export function CommandInput({ className, loading, ...props }: InputProps) {
+export function CommandInput({
+  className,
+  loading,
+  showCloseButton,
+  ...props
+}: InputProps) {
   return (
     <div
       data-slot="command-input-wrapper"
@@ -92,6 +94,7 @@ export function CommandInput({ className, loading, ...props }: InputProps) {
       {loading && (
         <Loader className="motion-safe:animate-spin [animation-duration:2s]" />
       )}
+      {showCloseButton && <CloseButton />}
     </div>
   );
 }

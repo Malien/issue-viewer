@@ -49,4 +49,3 @@ export default function CommentList(props: { issue: CommentListFragment$key }) {
     </>
   );
 }
-

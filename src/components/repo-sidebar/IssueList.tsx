@@ -2,7 +2,8 @@ import type { IssueListFragment$key } from "@/utils/relay/__generated__/IssueLis
 import { usePaginationFragment } from "react-relay";
 import { Fragment } from "react/jsx-runtime";
 import { graphql } from "relay-runtime";
-import Issue from "./Issue";
+import Issue, { IssueSkeleton } from "./Issue";
+import { useErrorBoundary } from "react-error-boundary";
 
 const IssueListFragment = graphql`
   fragment IssueListFragment on Repository 
@@ -43,7 +44,7 @@ export default function IssueList(props: { repo: IssueListFragment$key }) {
       <h2 className="mt-4 text-2xl px-4">Issues</h2>
       {issues?.map((issue) => (
         <Fragment key={issue.id}>
-          <Issue key={issue.id} issue={issue} />
+          <Issue issue={issue} />
           <div className="w-[calc(100%---spacing(4))] h-px bg-stone-200 ms-4 last-of-type:hidden" />
         </Fragment>
       ))}
@@ -56,6 +57,41 @@ export default function IssueList(props: { repo: IssueListFragment$key }) {
           Load more
         </button>
       )}
+    </>
+  );
+}
+
+export function IssueListErrorFallback() {
+  const { resetBoundary } = useErrorBoundary();
+
+  return (
+    <>
+      <h2 className="mt-4 text-2xl px-4">Issues</h2>
+      <div className="px-4 text-red-500">We couldn't load the issues for this repository.</div>
+      <button
+        type="button"
+        className="text-blue-600 hover:underline px-4"
+        onClick={resetBoundary}
+      >
+        Try again
+      </button>
+    </>
+  );
+}
+
+export function IssueListSkeleton() {
+  return (
+    <>
+      <h2 className="mt-4 text-2xl px-4">Issues</h2>
+      <IssueSkeleton />
+      <div className="w-[calc(100%---spacing(4))] h-px bg-stone-200 ms-4" />
+      <IssueSkeleton />
+      <div className="w-[calc(100%---spacing(4))] h-px bg-stone-200 ms-4" />
+      <IssueSkeleton />
+      <div className="w-[calc(100%---spacing(4))] h-px bg-stone-200 ms-4" />
+      <IssueSkeleton />
+      <div className="w-[calc(100%---spacing(4))] h-px bg-stone-200 ms-4" />
+      <IssueSkeleton />
     </>
   );
 }

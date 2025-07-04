@@ -48,3 +48,12 @@ function Label({ name, color }: { name: string; color: string }) {
     </div>
   );
 }
+
+export function LabelListSkeleton({ className }: { className?: string }) {
+  return (
+    <div className={cn("flex gap-2 flex-wrap", className)}>
+      <div className="bg-stone-200 rounded-full px-2 py-0.5 text-xs w-24 h-5" />
+      <div className="bg-stone-200 rounded-full px-2 py-0.5 text-xs w-18 h-5" />
+    </div>
+  );
+}

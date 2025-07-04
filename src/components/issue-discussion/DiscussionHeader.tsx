@@ -16,7 +16,9 @@ const DiscussionHeaderFragment = graphql`
   }
 `;
 
-export default function DiscussionHeader(props: { issue: DiscussionHeaderFragment$key }) {
+export default function DiscussionHeader(props: {
+  issue: DiscussionHeaderFragment$key;
+}) {
   const issue = useFragment(DiscussionHeaderFragment, props.issue);
   console.debug("DiscussionHeader", issue);
 
@@ -33,7 +35,7 @@ export default function DiscussionHeader(props: { issue: DiscussionHeaderFragmen
           </Suspense>
         </h1>
       </div>
-      <SearchTrigger className="h-fit" />
+      <SearchTrigger className="h-fit" closable />
     </header>
   );
 }
@@ -61,12 +63,16 @@ function IssueLink({ issue }: { issue: DiscussionHeaderLinkFragment$key }) {
 }
 
 function StateTag({ closed }: { closed: boolean }) {
-  console.debug("StateTag", { closed })
-  const color = closed ? "bg-red-200 text-red-800" : "bg-green-200 text-green-800";
+  console.debug("StateTag", { closed });
+  const color = closed
+    ? "bg-red-200 text-red-800"
+    : "bg-green-200 text-green-800";
   const statusText = closed ? "Closed" : "Open";
 
   return (
-    <div className={`${color} p-1.5 rounded-full flex h-fit gap-1 items-center font-bold pe-3`}>
+    <div
+      className={`${color} p-1.5 rounded-full flex h-fit gap-1 items-center font-bold pe-3`}
+    >
       <CircleDot className="w-6" />
       {statusText}
     </div>

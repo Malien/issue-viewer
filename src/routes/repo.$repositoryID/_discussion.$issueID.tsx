@@ -1,27 +1,32 @@
 import DateTag from "@/components/DateTag";
-import Comment, { CommentSkeleton } from "@/components/issue-discussion/Comment";
+import Comment, {
+  CommentSkeleton,
+} from "@/components/issue-discussion/Comment";
 import CommentList from "@/components/issue-discussion/CommentList";
 import DiscussionHeader from "@/components/issue-discussion/DiscussionHeader";
 import LabelList from "@/components/repo-sidebar/LabelList";
 import type { DiscussionQuery } from "@/utils/relay/__generated__/DiscussionQuery.graphql";
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense } from "react";
-import {
-  loadQuery,
-  usePreloadedQuery,
-} from "react-relay";
+import { loadQuery, usePreloadedQuery } from "react-relay";
 import { graphql } from "relay-runtime";
 
 // The pathless segment of _discussion is there to adapt to relay's naming convention
 // while having a more sensible query name of DiscussionQuery, instead of IssueIDQuery.
 //
 // _What does it mean to have a "IssueIDQuery"?. Do we query FOR the issue ID?_
-export const Route = createFileRoute("/repo/$repositoryID/_discussion/$issueID")({
+export const Route = createFileRoute(
+  "/repo/$repositoryID/_discussion/$issueID",
+)({
   component: RouteComponent,
   loader({ context, params }) {
-    return loadQuery<DiscussionQuery>(context.relayEnvironment, DiscussionQuery, {
-      issueID: params.issueID,
-    });
+    return loadQuery<DiscussionQuery>(
+      context.relayEnvironment,
+      DiscussionQuery,
+      {
+        issueID: params.issueID,
+      },
+    );
   },
 });
 
@@ -60,4 +65,3 @@ function RouteComponent() {
     </main>
   );
 }
-

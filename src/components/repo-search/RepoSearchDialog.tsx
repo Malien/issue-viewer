@@ -18,7 +18,12 @@ type Props = {
   onSelect?(): void;
 };
 
-export default function RepoSearchDialog({ onSelect, ...props }: Props) {
+export default function RepoSearchDialog({
+  onSelect,
+  showCloseButton,
+  open,
+  onOpenChange,
+}: Props) {
   const [searchQuery, setSearchQuery] = useState("");
   const debouncedSetSearchQuery = useMemo(
     () => debounce(setSearchQuery, 300),
@@ -39,11 +44,12 @@ export default function RepoSearchDialog({ onSelect, ...props }: Props) {
   }
 
   return (
-    <CommandDialog shouldFilter={false} {...props}>
+    <CommandDialog shouldFilter={false} open={open} onOpenChange={onOpenChange}>
       <CommandInput
         placeholder="Search for the GitHub repository..."
         onValueChange={handleSearchChange}
         loading={query !== searchQuery}
+        showCloseButton={showCloseButton}
       />
       {query && (
         <SearchResults
@@ -58,7 +64,7 @@ export default function RepoSearchDialog({ onSelect, ...props }: Props) {
 
 const RepoSearchDialogQuery = graphql`
   query RepoSearchDialogQuery($query: String!) {
-    # I'll skip paginating over the search results as it is not strictly required for now.
+    # Let's skip paginating over the search results as it is not strictly required for now.
     search(query: $query, type: REPOSITORY, first: 10) {
       edges {
         node {

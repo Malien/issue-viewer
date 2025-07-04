@@ -1,10 +1,10 @@
 import type { RepoSidebarFragment$key } from "@/utils/relay/__generated__/RepoSidebarFragment.graphql";
 import { Suspense } from "react";
-import { ErrorBoundary, useErrorBoundary } from "react-error-boundary";
+import { ErrorBoundary } from "react-error-boundary";
 import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import Contributors, { ContributorsSkeleton } from "./Contributors";
-import IssueList from "./IssueList";
+import IssueList, { IssueListErrorFallback, IssueListSkeleton } from "./IssueList";
 import RepoHeader from "./RepoHeader";
 
 const RepoSidebarFragment = graphql`
@@ -24,7 +24,7 @@ export default function RepoSidebar(props: { repo: RepoSidebarFragment$key }) {
       <Suspense fallback={<ContributorsSkeleton />}>
         <Contributors repo={repo} />
       </Suspense>
-      <Suspense>
+      <Suspense fallback={<IssueListSkeleton />}>
         <ErrorBoundary fallback={<IssueListErrorFallback />}>
           <IssueList repo={repo} />
         </ErrorBoundary>
@@ -33,20 +33,3 @@ export default function RepoSidebar(props: { repo: RepoSidebarFragment$key }) {
   );
 }
 
-function IssueListErrorFallback() {
-  const { resetBoundary } = useErrorBoundary();
-
-  return (
-    <div className="px-4 text-red-600">
-      <h2 className="mt-4 text-2xl px-4">Issues</h2>
-      We couldn't load the issues for this repository.
-      <button
-        type="button"
-        className="text-blue-600 hover:underline"
-        onClick={resetBoundary}
-      >
-        Try again
-      </button>
-    </div>
-  );
-}

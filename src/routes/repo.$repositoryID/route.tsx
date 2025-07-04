@@ -19,18 +19,18 @@ const routeRepoQuery = graphql`
 // - /repo/:owner/:name (aka. repo/facebook/react)
 // - /repo/:nodeID (aka. repo/MDQ6VXNlcjEwMjM0NTY3ODo=)
 //
-// The first has the benefit of looking nicer and being more "shareable". 
+// The first has the benefit of looking nicer and being more "shareable".
 // This is how gihub does it.
 //
-// The second has the benefit of a lot simpler reuse of the previously cached 
+// The second has the benefit of a lot simpler reuse of the previously cached
 // partial data (missing field handlers).
 //
 // The first is queried as Query.repository(owner: "facebook", name: "react")
 // The second is queried as Query.node(id: "MDQ6VXNlcjEwMjM0NTY3ODo=")
 //
-// Technically, it would be possible to write a missing field handler that would 
-// traverse every node in the store, and check if the owner/name is already 
-// present. I opted for the second approach as it is a cleaner solution for the 
+// Technically, it would be possible to write a missing field handler that would
+// traverse every node in the store, and check if the owner/name is already
+// present. I opted for the second approach as it is a cleaner solution for the
 // instant navigations from the search interface, right to the partially-rendered
 // repository page.
 export const Route = createFileRoute("/repo/$repositoryID")({

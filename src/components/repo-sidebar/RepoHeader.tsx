@@ -9,7 +9,6 @@ const RepoHeaderFragment = graphql`
     id
     nameWithOwner
     stargazerCount
-    url
     owner {
       id
       login
@@ -33,7 +32,7 @@ export default function RepoHeader(props: { repo: RepoHeaderFragment$key }) {
         <div className="self-center">
           <h1 className="text-3xl text-indigo-800 hover:underline h-fit">
             <a
-              href={repo.url}
+              href={`https://github.com/${repo.nameWithOwner}`}
               target="_blank"
               rel="noreferrer"
             >

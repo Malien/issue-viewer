@@ -22,23 +22,6 @@ const ContributorsFragment = graphql`
   }
 `;
 
-export function ContributorsSkeleton() {
-  return (
-    <>
-      <h2 className="mt-4 text-2xl px-4">Contributors</h2>
-      <div className="grid grid-cols-10 gap-2 mt-2 px-4">
-        {Array.from({ length: 20 }).map((_, index) => (
-          <div
-            // biome-ignore lint/suspicious/noArrayIndexKey: There is nothing unique about these elements, apart from their poisition in the grid.
-            key={index}
-            className="bg-stone-200 rounded-full w-full aspect-square animate-pulse"
-          />
-        ))}
-      </div>
-    </>
-  );
-}
-
 export default function Contributors(props: {
   repo: ContributorsFragment$key;
 }) {
@@ -101,3 +84,21 @@ function ContributorCircle({ user }: { user: ContributorsUserFragment$key }) {
     </a>
   );
 }
+
+export function ContributorsSkeleton() {
+  return (
+    <>
+      <h2 className="mt-4 text-2xl px-4">Contributors</h2>
+      <div className="grid grid-cols-10 gap-2 mt-2 px-4">
+        {Array.from({ length: 20 }).map((_, index) => (
+          <div
+            // biome-ignore lint/suspicious/noArrayIndexKey: There is nothing unique about these elements, apart from their poisition in the grid.
+            key={index}
+            className="bg-stone-200 rounded-full w-full aspect-square animate-pulse"
+          />
+        ))}
+      </div>
+    </>
+  );
+}
+

@@ -5,7 +5,7 @@ import { CircleDot } from "lucide-react";
 import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import DateTag from "../DateTag";
-import LabelList from "./LabelList";
+import LabelList, { LabelListSkeleton } from "./LabelList";
 import IssueTitle from "../IssueTitle";
 
 const IssueFragment = graphql`
@@ -44,4 +44,16 @@ export default function Issue(props: { issue: IssueFragment$key }) {
       <DateTag date={new Date(issue.createdAt)} className="col-span-3" />
     </Link>
   );
+}
+
+export function IssueSkeleton() {
+  return (
+    <div className="grid grid-cols-[--spacing(6)_auto_1fr] gap-x-1 gap-y-2 p-4 cursor-wait animate-pulse">
+      <CircleDot className="w-full text-stone-200" />
+      <div className="w-8 h-5 bg-stone-200 rounded-sm self-center" />
+      <div className="w-1/2 h-5 bg-stone-200 rounded-sm self-center" />
+      <LabelListSkeleton className="col-span-3" />
+      <div className="col-span-3 w-1/2 h-3 bg-stone-200 rounded-sm" />
+    </div>
+  )
 }

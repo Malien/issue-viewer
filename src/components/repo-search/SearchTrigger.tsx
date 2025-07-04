@@ -3,7 +3,12 @@ import { SearchIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import RepoSearchDialog from "./RepoSearchDialog";
 
-export default function SearchTrigger({ className }: { className?: string }) {
+type Props = {
+  closable: boolean;
+  className?: string;
+};
+
+export default function SearchTrigger({ className, closable }: Props) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -25,7 +30,7 @@ export default function SearchTrigger({ className }: { className?: string }) {
       <RepoSearchDialog
         open={open}
         onOpenChange={setOpen}
-        showCloseButton
+        showCloseButton={closable}
         onSelect={() => setOpen(false)}
       />
       <button
