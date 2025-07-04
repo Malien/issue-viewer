@@ -1,0 +1,161 @@
+/* Based on https://github.com/lonekorean/gist-syntax-themes/blob/master/stylesheets/twilight.css */
+
+.highlight .highlight {
+  background: #141414;
+}
+.highlight .blob-num,
+.highlight .blob-code-inner,
+.highlight .pl-s2,
+.highlight .pl-smi,
+.highlight .pl-smp,
+.highlight .pl-entl {
+  color: #ccc;
+}
+.highlight .pl-enti {
+  color: #ac885b;
+  font-weight: 700;
+}
+.highlight .pl-mp {
+  color: #c5af75;
+}
+.highlight .pl-s {
+  color: #f9ee98;
+}
+.highlight .pl-ib {
+  background: #f93;
+}
+.highlight .pl-id {
+  background: #a31515;
+  color: #fff;
+}
+.highlight .pl-ii {
+  background: #df5000;
+  color: #fff;
+}
+.highlight .pl-iu {
+  background: #b4b7b4;
+}
+.highlight .pl-mo {
+  color: #969896;
+}
+.highlight .pl-ms1 {
+  background: #f5f5f5;
+}
+.highlight .pl-c,
+.highlight .pl-c span,
+.highlight .pl-pdc {
+  color: #5f5a60;
+  font-style: italic;
+}
+.highlight .pl-c1,
+.highlight .pl-cn,
+.highlight .pl-coc,
+.highlight .pl-enc,
+.highlight .pl-ens,
+.highlight .pl-kos,
+.highlight .pl-kou,
+.highlight .pl-mh .pl-pdh,
+.highlight .pl-mq,
+.highlight .pl-pdc1,
+.highlight .pl-pde,
+.highlight .pl-pse,
+.highlight .pl-pse .pl-s2,
+.highlight .pl-scp,
+.highlight .pl-vi {
+  color: #cf6a4c;
+}
+.highlight .pl-cce,
+.highlight .pl-mh,
+.highlight .pl-mdr {
+  color: #cf6a4c;
+  font-weight: 400;
+}
+.highlight .pl-cos,
+.highlight .pl-ml,
+.highlight .pl-pds,
+.highlight .pl-s1,
+.highlight .pl-sol {
+  color: #8f9d6a;
+}
+.highlight .pl-e,
+.highlight .pl-ef,
+.highlight .pl-en,
+.highlight .pl-enf,
+.highlight .pl-enm,
+.highlight .pl-entc,
+.highlight .pl-eoi,
+.highlight .pl-smc,
+.highlight .pl-vo {
+  color: #ac885b;
+}
+.highlight .pl-ent,
+.highlight .pl-eoa,
+.highlight .pl-eoai,
+.highlight .pl-eoai .pl-pde,
+.highlight .pl-k,
+.highlight .pl-ko,
+.highlight .pl-kolp,
+.highlight .pl-mc,
+.highlight .pl-mr,
+.highlight .pl-ms,
+.highlight .pl-mp .pl-s3,
+.highlight .pl-sok,
+.highlight .pl-sra,
+.highlight .pl-src,
+.highlight .pl-sre,
+.highlight .pl-st {
+  color: #cda869;
+}
+.highlight .pl-entm,
+.highlight .pl-eoac,
+.highlight .pl-eoac .pl-pde,
+.highlight .pl-mai .pl-sf,
+.highlight .pl-mm,
+.highlight .pl-pdv,
+.highlight .pl-som,
+.highlight .pl-sr,
+.highlight .pl-stj,
+.highlight .pl-vpf {
+  color: #7587a6;
+}
+.highlight .pl-mb,
+.highlight .pl-pdb {
+  color: #8f9d6a;
+  font-weight: 700;
+}
+.highlight .pl-mi,
+.highlight .pl-pdi {
+  color: #cda869;
+  font-style: italic;
+}
+.highlight .pl-mp1 .pl-sf,
+.highlight .pl-s3,
+.highlight .pl-sc,
+.highlight .pl-sf {
+  color: #dad085;
+}
+.highlight .pl-stp,
+.highlight .pl-sv,
+.highlight .pl-v {
+  color: #9b859d;
+}
+.highlight .pl-mi1,
+.highlight .pl-mdht {
+  color: #55a532;
+  background: #020;
+}
+.highlight .pl-md,
+.highlight .pl-mdhf {
+  color: #bd2c00;
+  background: #200;
+}
+.highlight .pl-mdh,
+.highlight .pl-mdi {
+  color: #7587a6;
+  font-weight: 400;
+}
+.highlight .pl-mri,
+.highlight .pl-va,
+.highlight .pl-vpu {
+  color: teal;
+}

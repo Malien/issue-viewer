@@ -1,0 +1,31 @@
+.github-comment-body {
+  /* Make sure long links don't escape the container */
+  a {
+    word-break: break-word;
+  }
+
+  /* GitHub's weird lil' "snippet from the file" box */
+  .Box-body {
+    background: var(--color-stone-900);
+    font-family: var(--font-mono);
+    padding: 0.5rem;
+    border-radius: calc(var(--spacing) * 2);
+    overflow: auto;
+
+    & > table {
+      margin: 0;
+    }
+
+    td {
+      white-space: pre;
+    }
+
+    tr {
+      border: none;
+    }
+
+    .px-3 {
+      padding: 0;
+    }
+  }
+}

@@ -17,7 +17,9 @@ Let's checkout out the project configuration:
 
 Let's begin by scratching out the design
 
-I would imagine a command-pallete centric design, ala Spotlight. And a 40/60 split column. Left side would house the repo info, and a list of issues. Right side would display issue discussion.
+I would imagine a command-pallete centric design, ala Spotlight. And a 30/70 split column. Left side would house the repo info, and a list of issues. Right side would display issue discussion.
+
+This design won't work for mobile. But I don't think it has to.
 
 Let's go:
 - `pnpm install`
@@ -26,3 +28,14 @@ Let's go:
 - `Authentication: Bearer undefined` my ass. Have I tried restarting the dev server?
 
 Let's start with the command pallete. I've been using radix a lot for these kinds of components from scratch. Base-ui is gaining tracktion. But honestly let's not dwell on this a lot, and just yoink the one from chadcn/ui.
+
+...
+
+aaaaand I went into a zone, and banged out the rest of the project. I don't think that much worth metioning hanppened.
+
+- Use tailwindcss/typography to make comments look beautiful-by-default
+- Provide a syntax highlight pallette
+- Fix styling of GitHub's "snippet" thingy
+- Make a liberal use of Relay's ability to render partially available data for instant transitions
+- Utilize new-ish `@alias`, instead of matching on `__typename`. In my experience it generates much better type definitions.
+- Tanstack router's default intent-based preloading is a godsend

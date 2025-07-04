@@ -1,5 +1,5 @@
 import type { RepoHeaderFragment$key } from "@/utils/relay/__generated__/RepoHeaderFragment.graphql";
-import { Star } from "lucide-react";
+import { GitFork, Star } from "lucide-react";
 import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import RepoDescription from "../RepoDescription";
@@ -9,6 +9,7 @@ const RepoHeaderFragment = graphql`
     id
     nameWithOwner
     stargazerCount
+    forkCount
     owner {
       id
       login
@@ -39,9 +40,15 @@ export default function RepoHeader(props: { repo: RepoHeaderFragment$key }) {
               {repo.nameWithOwner}
             </a>
           </h1>
-          <div className="flex gap-1 items-center align-self-top mt-1">
-            <Star fill="orange" stroke="orange" />
-            {new Intl.NumberFormat().format(repo.stargazerCount)}
+          <div className="flex gap-8">
+            <div className="flex gap-1 items-center align-self-top mt-1">
+              <Star fill="orange" stroke="orange" />
+              {new Intl.NumberFormat().format(repo.stargazerCount)}
+            </div>
+            <div className="flex gap-1 items-center align-self-top mt-1">
+              <GitFork />
+              {new Intl.NumberFormat().format(repo.forkCount)}
+            </div>
           </div>
         </div>
       </div>

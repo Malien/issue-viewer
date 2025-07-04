@@ -9,12 +9,14 @@ import IssueList, {
   IssueListSkeleton,
 } from "./IssueList";
 import RepoHeader from "./RepoHeader";
+import RepoStats, { RepoStatsSkeleton } from "./RepoStats";
 
 const RepoSidebarFragment = graphql`
   fragment RepoSidebarFragment on Repository {
     ...RepoHeaderFragment
     ...ContributorsFragment
     ...IssueListFragment
+    ...RepoStatsFragment
   }
 `;
 
@@ -24,6 +26,9 @@ export default function RepoSidebar(props: { repo: RepoSidebarFragment$key }) {
   return (
     <>
       <RepoHeader repo={repo} />
+      <Suspense fallback={<RepoStatsSkeleton />}>
+        <RepoStats repo={repo} />
+      </Suspense>
       <Suspense fallback={<ContributorsSkeleton />}>
         <Contributors repo={repo} />
       </Suspense>

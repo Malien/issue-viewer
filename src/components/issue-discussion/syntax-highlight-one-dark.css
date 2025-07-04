@@ -1,0 +1,156 @@
+/* Based on: https://github.com/lonekorean/gist-syntax-themes/blob/master/stylesheets/one-dark.css */
+
+.highlight .highlight {
+  background: #141414;
+}
+.highlight .blob-num,
+.highlight .blob-code-inner,
+.highlight .highlight,
+.highlight .pl-enm,
+.highlight .pl-ko,
+.highlight .pl-mo,
+.highlight .pl-mp1 .pl-sf,
+.highlight .pl-ms,
+.highlight .pl-pdc1,
+.highlight .pl-scp,
+.highlight .pl-smc,
+.highlight .pl-som,
+.highlight .pl-va,
+.highlight .pl-vpf,
+.highlight .pl-vpu,
+.highlight .pl-mdr {
+  color: #aab1bf;
+}
+.highlight .pl-mb,
+.highlight .pl-pdb {
+  font-weight: 700;
+}
+.highlight .pl-c,
+.highlight .pl-c span,
+.highlight .pl-pdc {
+  color: #5b6270;
+  font-style: italic;
+}
+.highlight .pl-sr .pl-cce {
+  color: #56b5c2;
+  font-weight: 400;
+}
+.highlight .pl-ef,
+.highlight .pl-en,
+.highlight .pl-enf,
+.highlight .pl-eoai,
+.highlight .pl-kos,
+.highlight .pl-mh .pl-pdh,
+.highlight .pl-mr {
+  color: #61afef;
+}
+.highlight .pl-ens,
+.highlight .pl-vi {
+  color: #be5046;
+}
+.highlight .pl-enti,
+.highlight .pl-mai .pl-sf,
+.highlight .pl-ml,
+.highlight .pl-sf,
+.highlight .pl-sr,
+.highlight .pl-sr .pl-sra,
+.highlight .pl-src,
+.highlight .pl-st,
+.highlight .pl-vo {
+  color: #56b5c2;
+}
+.highlight .pl-eoi,
+.highlight .pl-mri,
+.highlight .pl-pds,
+.highlight .pl-pse .pl-s1,
+.highlight .pl-s,
+.highlight .pl-s1 {
+  color: #97c279;
+}
+.highlight .pl-k,
+.highlight .pl-kolp,
+.highlight .pl-mc,
+.highlight .pl-pde {
+  color: #c578dd;
+}
+.highlight .pl-mi,
+.highlight .pl-pdi {
+  color: #c578dd;
+  font-style: italic;
+}
+.highlight .pl-mp,
+.highlight .pl-stp {
+  color: #818896;
+}
+.highlight .pl-mdh,
+.highlight .pl-mdi,
+.highlight .pl-mdr {
+  font-weight: 400;
+}
+.highlight .pl-mdht,
+.highlight .pl-mi1 {
+  color: #97c279;
+  background: #020;
+}
+.highlight .pl-md,
+.highlight .pl-mdhf {
+  color: #df6b75;
+  background: #200;
+}
+.highlight .pl-corl {
+  color: #df6b75;
+  text-decoration: underline;
+}
+.highlight .pl-ib {
+  background: #df6b75;
+}
+.highlight .pl-ii {
+  background: #e0c184;
+  color: #fff;
+}
+.highlight .pl-iu {
+  background: #e05151;
+}
+.highlight .pl-ms1 {
+  color: #aab1bf;
+  background: #373b41;
+}
+.highlight .pl-c1,
+.highlight .pl-cn,
+.highlight .pl-e,
+.highlight .pl-eoa,
+.highlight .pl-eoac,
+.highlight .pl-eoac .pl-pde,
+.highlight .pl-kou,
+.highlight .pl-mm,
+.highlight .pl-mp .pl-s3,
+.highlight .pl-mq,
+.highlight .pl-s3,
+.highlight .pl-sok,
+.highlight .pl-sv,
+.highlight .pl-mb {
+  color: #d19965;
+}
+.highlight .pl-enc,
+.highlight .pl-entc,
+.highlight .pl-pse .pl-s2,
+.highlight .pl-s2,
+.highlight .pl-sc,
+.highlight .pl-smp,
+.highlight .pl-sr .pl-sre,
+.highlight .pl-stj,
+.highlight .pl-v,
+.highlight .pl-pdb {
+  color: #e4bf7a;
+}
+.highlight .pl-ent,
+.highlight .pl-entl,
+.highlight .pl-entm,
+.highlight .pl-mh,
+.highlight .pl-pdv,
+.highlight .pl-smi,
+.highlight .pl-sol,
+.highlight .pl-mdh,
+.highlight .pl-mdi {
+  color: #df6b75;
+}

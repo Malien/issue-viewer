@@ -120,7 +120,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-.break-links a {
-  word-break: break-word;
-}

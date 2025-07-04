@@ -4,6 +4,10 @@ import { graphql } from "relay-runtime";
 import DateTag from "../DateTag";
 import Author, { AuthorSkeleton } from "./Author";
 
+// Includes a couple of fixes to the GitHub formatted body HTML
+import "./body-format.css";
+import "./syntax-highlight-one-dark.css";
+
 const CommentFragment = graphql`
   fragment CommentFragment on Comment {
     id
@@ -28,7 +32,7 @@ export default function Comment(props: { comment: CommentFragment$key }) {
         )}
       </div>
       <div
-        className="mt-4 prose break-links"
+        className="mt-4 prose github-comment-body"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: I trust GitHub to sanitize issue bodies
         dangerouslySetInnerHTML={{ __html: comment.bodyHTML }}
       />

@@ -7,9 +7,6 @@ export const Route = createFileRoute("/repo/$repositoryID/")({
 
 function RouteComponent() {
   return (
-    <SearchTrigger
-      className="absolute top-4 right-4 hover:bg-stone-200"
-      closable={false}
-    />
+    <SearchTrigger className="absolute top-4 right-4 hover:bg-stone-200" closable />
   );
 }

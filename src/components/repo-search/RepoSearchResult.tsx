@@ -1,7 +1,7 @@
 import { CommandItem } from "@/components/ui/command";
 import type { RepoSearchResultFragment$key } from "@/utils/relay/__generated__/RepoSearchResultFragment.graphql";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Star } from "lucide-react";
+import { GitFork, Star } from "lucide-react";
 import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import RepoDescription from "../RepoDescription";
@@ -11,6 +11,7 @@ const RepoSearchResultFragment = graphql`
     id
     nameWithOwner
     stargazerCount
+    forkCount
     owner {
       id
       login
@@ -47,11 +48,13 @@ export default function RepoSearchResult(props: {
           className="row-1 col-1 rounded-sm"
         />
         <div className="row-1 col-2">{repo.nameWithOwner}</div>
-        <div className="row-1 col-3 flex gap-1 items-center">
+        <div className="row-span-2 col-3 grid grid-cols-[1fr_--spacing(4)] gap-2 ms-2 justify-items-end self-start">
           {new Intl.NumberFormat().format(repo.stargazerCount)}
           <Star fill="orange" stroke="orange" />
+          {new Intl.NumberFormat().format(repo.forkCount)}
+          <GitFork />
         </div>
-        <RepoDescription repo={repo} className="row-2 col-span-3" />
+        <RepoDescription repo={repo} className="row-2 col-span-2" />
       </Link>
     </CommandItem>
   );

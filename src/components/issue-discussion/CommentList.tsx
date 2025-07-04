@@ -28,18 +28,20 @@ const CommentListFragment = graphql`
 export default function CommentList(props: { issue: CommentListFragment$key }) {
   const page = usePaginationFragment(CommentListFragment, props.issue);
 
-  const items =
-    page.data.comments?.edges
-      ?.filter((edge) => !!edge)
-      .map((edge) => edge.node)
-      .filter((node) => !!node)
-      .map((comment) => <Comment key={comment.id} comment={comment} />);
+  const items = page.data.comments?.edges
+    ?.filter((edge) => !!edge)
+    .map((edge) => edge.node)
+    .filter((node) => !!node)
+    .map((comment) => <Comment key={comment.id} comment={comment} />);
 
   return (
     <>
       {items}
       {page.hasNext && (
-        <LoadMoreButton disabled={page.isLoadingNext} onClick={() => page.loadNext(5)} />
+        <LoadMoreButton
+          disabled={page.isLoadingNext}
+          onClick={() => page.loadNext(5)}
+        />
       )}
     </>
   );
