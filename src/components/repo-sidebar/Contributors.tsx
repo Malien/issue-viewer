@@ -53,7 +53,7 @@ export default function Contributors(props: {
 
 const repoContributorCircleFragment = graphql`
   fragment ContributorsUserFragment on User {
-   login
+    login
     name
     avatarUrl
   }

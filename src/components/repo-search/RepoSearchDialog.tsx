@@ -90,10 +90,7 @@ function SearchResults({ query, filterQuery, onSelect }: SearchResultsProps) {
   });
 
   return (
-    <CommandList
-      className={cn("p-2", query !== filterQuery && "opacity-50")}
-      onSelect={() => console.debug("selected")}
-    >
+    <CommandList className={cn("p-2", query !== filterQuery && "opacity-50")}>
       {data.search.edges
         ?.map((edge) => edge?.node?.repo)
         .filter(isNotNullish)

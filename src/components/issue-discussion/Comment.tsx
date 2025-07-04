@@ -10,7 +10,6 @@ import "./syntax-highlight-one-dark.css";
 
 const CommentFragment = graphql`
   fragment CommentFragment on Comment {
-    id
     author {
       ...AuthorFragment
     }
@@ -50,16 +49,16 @@ export function CommentSkeleton() {
         </div>
         <div className="prose">
           <div className="mt-4 h-6 w-48 bg-stone-200 rounded-md" />
-          <p className="mt-4">
+          <div className="mt-4">
             <div className="h-6 w-[100%] bg-stone-200 rounded-md mb-2" />
             <div className="h-6 w-[85%] bg-stone-200 rounded-md mb-2" />
             <div className="h-6 w-[90%] bg-stone-200 rounded-md mb-2" />
-          </p>
-          <p className="mt-4">
+          </div>
+          <div className="mt-4">
             <div className="h-6 w-[95%] bg-stone-200 rounded-md mb-2" />
             <div className="h-6 w-[100%] bg-stone-200 rounded-md mb-2" />
             <div className="h-6 w-[50%] bg-stone-200 rounded-md mb-2" />
-          </p>
+          </div>
           <div className="h-5 w-64 bg-stone-200 rounded-md mt-4" />
         </div>
       </div>

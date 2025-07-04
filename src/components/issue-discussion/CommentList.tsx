@@ -1,8 +1,8 @@
 import type { CommentListFragment$key } from "@/utils/relay/__generated__/CommentListFragment.graphql";
 import { usePaginationFragment } from "react-relay";
 import { graphql } from "relay-runtime";
-import Comment from "./Comment";
 import LoadMoreButton from "../LoadMoreButton";
+import Comment from "./Comment";
 
 const CommentListFragment = graphql`
   fragment CommentListFragment on Issue

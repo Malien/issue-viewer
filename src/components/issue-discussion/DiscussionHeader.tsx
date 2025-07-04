@@ -6,9 +6,6 @@ import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import IssueTitle from "../IssueTitle";
 import SearchTrigger from "../repo-search/SearchTrigger";
-// Includes a couple of fixes to the GitHub formatted body HTML
-import "./body-format.css";
-import "./syntax-highlight-one-dark.css";
 
 // We should be able to render the header with just the data from the IssueFragment.
 const DiscussionHeaderFragment = graphql`
@@ -71,7 +68,6 @@ function IssueLink({ issue }: { issue: DiscussionHeaderLinkFragment$key }) {
 }
 
 function StateTag({ closed }: { closed: boolean }) {
-  console.debug("StateTag", { closed });
   const color = closed
     ? "bg-red-200 text-red-800"
     : "bg-green-200 text-green-800";
