@@ -17,6 +17,8 @@ Let's checkout out the project configuration:
 
 Let's begin by scratching out the design
 
+![Mockup design](/public/mockup.jpeg)
+
 I would imagine a command-pallete centric design, ala Spotlight. And a 30/70 split column. Left side would house the repo info, and a list of issues. Right side would display issue discussion.
 
 This design won't work for mobile. But I don't think it has to.
@@ -31,11 +33,15 @@ Let's start with the command pallete. I've been using radix a lot for these kind
 
 ...
 
-aaaaand I went into a zone, and banged out the rest of the project. I don't think that much worth metioning hanppened.
+aaaaand I went into a zone, and banged out the rest of the project. I don't think that much worth metioning hanppened. Here's the highlights
 
 - Use tailwindcss/typography to make comments look beautiful-by-default
 - Provide a syntax highlight pallette
 - Fix styling of GitHub's "snippet" thingy
 - Make a liberal use of Relay's ability to render partially available data for instant transitions
+- Design skeletons, and try to avoid as much content-layout-shift as possible.
 - Utilize new-ish `@alias`, instead of matching on `__typename`. In my experience it generates much better type definitions.
 - Tanstack router's default intent-based preloading is a godsend
+- Get confused why publicly available repo information fails the permission check (see `Contributors.tsx`)
+
+Other than those, it was a smooth sailing.
