@@ -42,7 +42,7 @@ function Label({ name, color }: { name: string; color: string }) {
   return (
     <div
       style={{ "--label-color": `#${color}` }}
-      className="text-(--label-color) bg-(--label-color)/20 border border-(--label-color) rounded-full px-4 py-1 text-sm saturate-300 brightness-70 whitespace-nowrap"
+      className="text-(--label-color) bg-(--label-color)/20 border border-(--label-color) rounded-full px-2 py-0.5 text-xs saturate-300 brightness-70 whitespace-nowrap"
     >
       {name}
     </div>

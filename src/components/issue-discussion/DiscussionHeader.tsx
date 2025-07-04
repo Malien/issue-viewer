@@ -1,0 +1,74 @@
+import type { DiscussionHeaderFragment$key } from "@/utils/relay/__generated__/DiscussionHeaderFragment.graphql";
+import { useFragment } from "react-relay";
+import { graphql } from "relay-runtime";
+import IssueTitle from "../IssueTitle";
+import { Suspense } from "react";
+import SearchTrigger from "../repo-search/SearchTrigger";
+import type { DiscussionHeaderLinkFragment$key } from "@/utils/relay/__generated__/DiscussionHeaderLinkFragment.graphql";
+import { CircleDot } from "lucide-react";
+
+const DiscussionHeaderFragment = graphql`
+  fragment DiscussionHeaderFragment on Issue {
+    number
+    closed
+    ...DiscussionHeaderLinkFragment
+    ...IssueTitleFragment
+  }
+`;
+
+export default function DiscussionHeader(props: { issue: DiscussionHeaderFragment$key }) {
+  const issue = useFragment(DiscussionHeaderFragment, props.issue);
+  console.debug("DiscussionHeader", issue);
+
+  return (
+    <header className="bg-white border-b p-4 sticky top-0 flex justify-between gap-2 z-10">
+      <div className="flex gap-2">
+        <StateTag closed={issue.closed} />
+        <h1 className="text-2xl font-bold overflow-hidden text-ellipsis">
+          <IssueTitle issue={issue} />{" "}
+          <Suspense
+            fallback={<span className="text-stone-500">#{issue.number}</span>}
+          >
+            <IssueLink issue={issue} />
+          </Suspense>
+        </h1>
+      </div>
+      <SearchTrigger className="h-fit" />
+    </header>
+  );
+}
+
+const DiscussionHeaderLinkFragment = graphql`
+  fragment DiscussionHeaderLinkFragment on Issue {
+    url
+    number
+  }
+`;
+
+function IssueLink({ issue }: { issue: DiscussionHeaderLinkFragment$key }) {
+  const { url, number } = useFragment(DiscussionHeaderLinkFragment, issue);
+
+  return (
+    <a
+      href={url}
+      className="text-stone-500 hover:underline"
+      target="_blank"
+      rel="noreferrer"
+    >
+      #{number}
+    </a>
+  );
+}
+
+function StateTag({ closed }: { closed: boolean }) {
+  console.debug("StateTag", { closed })
+  const color = closed ? "bg-red-200 text-red-800" : "bg-green-200 text-green-800";
+  const statusText = closed ? "Closed" : "Open";
+
+  return (
+    <div className={`${color} p-1.5 rounded-full flex h-fit gap-1 items-center font-bold pe-3`}>
+      <CircleDot className="w-6" />
+      {statusText}
+    </div>
+  );
+}

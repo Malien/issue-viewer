@@ -38,6 +38,7 @@ function IssueListErrorFallback() {
 
   return (
     <div className="px-4 text-red-600">
+      <h2 className="mt-4 text-2xl px-4">Issues</h2>
       We couldn't load the issues for this repository.
       <button
         type="button"

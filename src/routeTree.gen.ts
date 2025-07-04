@@ -10,52 +10,70 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as RepoRepositoryIDRouteImport } from './routes/repo.$repositoryID'
-import { Route as RepoRepositoryIDIssueIDRouteImport } from './routes/repo.$repositoryID.$issueID'
+import { Route as RepoRepositoryIDRouteRouteImport } from './routes/repo.$repositoryID/route'
+import { Route as RepoRepositoryIDIndexRouteImport } from './routes/repo.$repositoryID/index'
+import { Route as RepoRepositoryIDDiscussionIssueIDRouteImport } from './routes/repo.$repositoryID/_discussion.$issueID'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RepoRepositoryIDRoute = RepoRepositoryIDRouteImport.update({
+const RepoRepositoryIDRouteRoute = RepoRepositoryIDRouteRouteImport.update({
   id: '/repo/$repositoryID',
   path: '/repo/$repositoryID',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RepoRepositoryIDIssueIDRoute = RepoRepositoryIDIssueIDRouteImport.update({
-  id: '/$issueID',
-  path: '/$issueID',
-  getParentRoute: () => RepoRepositoryIDRoute,
+const RepoRepositoryIDIndexRoute = RepoRepositoryIDIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => RepoRepositoryIDRouteRoute,
 } as any)
+const RepoRepositoryIDDiscussionIssueIDRoute =
+  RepoRepositoryIDDiscussionIssueIDRouteImport.update({
+    id: '/_discussion/$issueID',
+    path: '/$issueID',
+    getParentRoute: () => RepoRepositoryIDRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/repo/$repositoryID': typeof RepoRepositoryIDRouteWithChildren
-  '/repo/$repositoryID/$issueID': typeof RepoRepositoryIDIssueIDRoute
+  '/repo/$repositoryID': typeof RepoRepositoryIDRouteRouteWithChildren
+  '/repo/$repositoryID/': typeof RepoRepositoryIDIndexRoute
+  '/repo/$repositoryID/$issueID': typeof RepoRepositoryIDDiscussionIssueIDRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/repo/$repositoryID': typeof RepoRepositoryIDRouteWithChildren
-  '/repo/$repositoryID/$issueID': typeof RepoRepositoryIDIssueIDRoute
+  '/repo/$repositoryID': typeof RepoRepositoryIDIndexRoute
+  '/repo/$repositoryID/$issueID': typeof RepoRepositoryIDDiscussionIssueIDRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/repo/$repositoryID': typeof RepoRepositoryIDRouteWithChildren
-  '/repo/$repositoryID/$issueID': typeof RepoRepositoryIDIssueIDRoute
+  '/repo/$repositoryID': typeof RepoRepositoryIDRouteRouteWithChildren
+  '/repo/$repositoryID/': typeof RepoRepositoryIDIndexRoute
+  '/repo/$repositoryID/_discussion/$issueID': typeof RepoRepositoryIDDiscussionIssueIDRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/repo/$repositoryID' | '/repo/$repositoryID/$issueID'
+  fullPaths:
+    | '/'
+    | '/repo/$repositoryID'
+    | '/repo/$repositoryID/'
+    | '/repo/$repositoryID/$issueID'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/repo/$repositoryID' | '/repo/$repositoryID/$issueID'
-  id: '__root__' | '/' | '/repo/$repositoryID' | '/repo/$repositoryID/$issueID'
+  id:
+    | '__root__'
+    | '/'
+    | '/repo/$repositoryID'
+    | '/repo/$repositoryID/'
+    | '/repo/$repositoryID/_discussion/$issueID'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  RepoRepositoryIDRoute: typeof RepoRepositoryIDRouteWithChildren
+  RepoRepositoryIDRouteRoute: typeof RepoRepositoryIDRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -71,33 +89,45 @@ declare module '@tanstack/react-router' {
       id: '/repo/$repositoryID'
       path: '/repo/$repositoryID'
       fullPath: '/repo/$repositoryID'
-      preLoaderRoute: typeof RepoRepositoryIDRouteImport
+      preLoaderRoute: typeof RepoRepositoryIDRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/repo/$repositoryID/$issueID': {
-      id: '/repo/$repositoryID/$issueID'
+    '/repo/$repositoryID/': {
+      id: '/repo/$repositoryID/'
+      path: '/'
+      fullPath: '/repo/$repositoryID/'
+      preLoaderRoute: typeof RepoRepositoryIDIndexRouteImport
+      parentRoute: typeof RepoRepositoryIDRouteRoute
+    }
+    '/repo/$repositoryID/_discussion/$issueID': {
+      id: '/repo/$repositoryID/_discussion/$issueID'
       path: '/$issueID'
       fullPath: '/repo/$repositoryID/$issueID'
-      preLoaderRoute: typeof RepoRepositoryIDIssueIDRouteImport
-      parentRoute: typeof RepoRepositoryIDRoute
+      preLoaderRoute: typeof RepoRepositoryIDDiscussionIssueIDRouteImport
+      parentRoute: typeof RepoRepositoryIDRouteRoute
     }
   }
 }
 
-interface RepoRepositoryIDRouteChildren {
-  RepoRepositoryIDIssueIDRoute: typeof RepoRepositoryIDIssueIDRoute
+interface RepoRepositoryIDRouteRouteChildren {
+  RepoRepositoryIDIndexRoute: typeof RepoRepositoryIDIndexRoute
+  RepoRepositoryIDDiscussionIssueIDRoute: typeof RepoRepositoryIDDiscussionIssueIDRoute
 }
 
-const RepoRepositoryIDRouteChildren: RepoRepositoryIDRouteChildren = {
-  RepoRepositoryIDIssueIDRoute: RepoRepositoryIDIssueIDRoute,
+const RepoRepositoryIDRouteRouteChildren: RepoRepositoryIDRouteRouteChildren = {
+  RepoRepositoryIDIndexRoute: RepoRepositoryIDIndexRoute,
+  RepoRepositoryIDDiscussionIssueIDRoute:
+    RepoRepositoryIDDiscussionIssueIDRoute,
 }
 
-const RepoRepositoryIDRouteWithChildren =
-  RepoRepositoryIDRoute._addFileChildren(RepoRepositoryIDRouteChildren)
+const RepoRepositoryIDRouteRouteWithChildren =
+  RepoRepositoryIDRouteRoute._addFileChildren(
+    RepoRepositoryIDRouteRouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  RepoRepositoryIDRoute: RepoRepositoryIDRouteWithChildren,
+  RepoRepositoryIDRouteRoute: RepoRepositoryIDRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

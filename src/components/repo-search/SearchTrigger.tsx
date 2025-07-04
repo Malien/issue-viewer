@@ -32,7 +32,7 @@ export default function SearchTrigger({ className }: { className?: string }) {
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          "border border-stone-400 rounded-sm grid grid-cols-[--spacing(6)_1fr_auto] gap-2 px-2 py-1 max-w-60 w-full items-center cursor-pointer hover:bg-stone-200",
+          "border border-stone-400 rounded-sm grid grid-cols-[--spacing(6)_1fr_auto] gap-2 px-2 py-1 max-w-60 w-full items-center cursor-pointer hover:bg-stone-100",
           className,
         )}
       >

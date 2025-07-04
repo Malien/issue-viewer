@@ -14,7 +14,7 @@ const IssueListFragment = graphql`
     @throwOnFieldError
   {
     issues(last: $count, before: $cursor) 
-      @connection(key: "IssueListPaginationQuery_issues")
+      @connection(key: "IssueListFragment_issues")
     {
       edges {
         node {
@@ -44,12 +44,12 @@ export default function IssueList(props: { repo: IssueListFragment$key }) {
       {issues?.map((issue) => (
         <Fragment key={issue.id}>
           <Issue key={issue.id} issue={issue} />
-          <div className="w-[calc(100%---spacing(4))] h-px bg-slate-200 ms-4 last-of-type:hidden" />
+          <div className="w-[calc(100%---spacing(4))] h-px bg-stone-200 ms-4 last-of-type:hidden" />
         </Fragment>
       ))}
       {page.hasPrevious && (
         <button
-          className="text-blue-600 rounded-md px-4 py-2 mb-4 text-center w-full cursor-pointer border mt-4 mb-12 mx-auto max-w-sm block hover:bg-slate-100 disabled:opacity-50 disabled:cursor-wait"
+          className="text-blue-600 rounded-md px-4 py-2 mb-4 text-center w-full cursor-pointer border mt-4 mb-12 mx-auto max-w-sm block hover:bg-stone-100 disabled:opacity-50 disabled:cursor-wait"
           disabled={page.isLoadingPrevious}
           onClick={() => page.loadPrevious(10)}
         >
