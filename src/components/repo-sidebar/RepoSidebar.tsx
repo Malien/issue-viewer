@@ -4,7 +4,10 @@ import { ErrorBoundary } from "react-error-boundary";
 import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import Contributors, { ContributorsSkeleton } from "./Contributors";
-import IssueList, { IssueListErrorFallback, IssueListSkeleton } from "./IssueList";
+import IssueList, {
+  IssueListErrorFallback,
+  IssueListSkeleton,
+} from "./IssueList";
 import RepoHeader from "./RepoHeader";
 
 const RepoSidebarFragment = graphql`
@@ -32,4 +35,3 @@ export default function RepoSidebar(props: { repo: RepoSidebarFragment$key }) {
     </>
   );
 }
-

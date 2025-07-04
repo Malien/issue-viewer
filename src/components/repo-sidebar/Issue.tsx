@@ -5,8 +5,8 @@ import { CircleDot } from "lucide-react";
 import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import DateTag from "../DateTag";
-import LabelList, { LabelListSkeleton } from "./LabelList";
 import IssueTitle from "../IssueTitle";
+import LabelList, { LabelListSkeleton } from "./LabelList";
 
 const IssueFragment = graphql`
   fragment IssueFragment on Issue {
@@ -55,5 +55,5 @@ export function IssueSkeleton() {
       <LabelListSkeleton className="col-span-3" />
       <div className="col-span-3 w-1/2 h-3 bg-stone-200 rounded-sm" />
     </div>
-  )
+  );
 }

@@ -1,8 +1,8 @@
+import type { CommentFragment$key } from "@/utils/relay/__generated__/CommentFragment.graphql";
 import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import DateTag from "../DateTag";
 import Author, { AuthorSkeleton } from "./Author";
-import type { CommentFragment$key } from "@/utils/relay/__generated__/CommentFragment.graphql";
 
 const CommentFragment = graphql`
   fragment CommentFragment on Comment {

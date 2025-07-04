@@ -1,9 +1,10 @@
 import type { IssueListFragment$key } from "@/utils/relay/__generated__/IssueListFragment.graphql";
+import { useErrorBoundary } from "react-error-boundary";
 import { usePaginationFragment } from "react-relay";
 import { Fragment } from "react/jsx-runtime";
 import { graphql } from "relay-runtime";
+import LoadMoreButton from "../LoadMoreButton";
 import Issue, { IssueSkeleton } from "./Issue";
-import { useErrorBoundary } from "react-error-boundary";
 
 const IssueListFragment = graphql`
   fragment IssueListFragment on Repository 
@@ -49,13 +50,10 @@ export default function IssueList(props: { repo: IssueListFragment$key }) {
         </Fragment>
       ))}
       {page.hasPrevious && (
-        <button
-          className="text-blue-600 rounded-md px-4 py-2 mb-4 text-center w-full cursor-pointer border mt-4 mb-12 mx-auto max-w-sm block hover:bg-stone-100 disabled:opacity-50 disabled:cursor-wait"
+        <LoadMoreButton
           disabled={page.isLoadingPrevious}
           onClick={() => page.loadPrevious(10)}
-        >
-          Load more
-        </button>
+        />
       )}
     </>
   );
@@ -67,7 +65,9 @@ export function IssueListErrorFallback() {
   return (
     <>
       <h2 className="mt-4 text-2xl px-4">Issues</h2>
-      <div className="px-4 text-red-500">We couldn't load the issues for this repository.</div>
+      <div className="px-4 text-red-500">
+        We couldn't load the issues for this repository.
+      </div>
       <button
         type="button"
         className="text-blue-600 hover:underline px-4"
