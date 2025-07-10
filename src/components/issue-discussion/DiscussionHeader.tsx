@@ -45,6 +45,21 @@ export default function DiscussionHeader(props: {
   );
 }
 
+export function DiscussionHeaderFallback() {
+  return (
+    <header className="bg-white border-b p-4 sticky top-0 flex justify-between gap-2 z-10">
+      <div className="flex gap-2">
+        <div className="bg-stone-200 h-9 rounded-full w-22 p-1.5">
+          <CircleDot className="w-6 text-stone-500" />
+        </div>
+        <div className="bg-stone-200 font-bold h-8 w-80 rounded-md" />
+        <div className="bg-stone-200 font-bold h-8 w-20 rounded-md" />
+      </div>
+      <SearchTrigger className="h-fit" closable />
+    </header>
+  );
+}
+
 const DiscussionHeaderLinkFragment = graphql`
   fragment DiscussionHeaderLinkFragment on Issue {
     url

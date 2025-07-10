@@ -12,6 +12,7 @@ const RepoSearchResultFragment = graphql`
     nameWithOwner
     stargazerCount
     forkCount
+    viewerHasStarred
     owner {
       id
       login
@@ -50,7 +51,10 @@ export default function RepoSearchResult(props: {
         <div className="row-1 col-2">{repo.nameWithOwner}</div>
         <div className="row-span-2 col-3 grid grid-cols-[1fr_--spacing(4)] gap-2 ms-2 justify-items-end self-start">
           {new Intl.NumberFormat().format(repo.stargazerCount)}
-          <Star fill="orange" stroke="orange" />
+          <Star
+            fill={repo.viewerHasStarred ? "orange" : "transparent"}
+            stroke="orange"
+          />
           {new Intl.NumberFormat().format(repo.forkCount)}
           <GitFork />
         </div>

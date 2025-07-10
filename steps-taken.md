@@ -52,5 +52,4 @@ Overall it was a smooth sailing.
 
 - Virtualize issue and discussion lists
 - Make a page more lively with subtle reveal animations / page transitions
-- Cover a couple of interactions with UI tests
 - Add ability to interact with the page. Make so that the app can not just read, but also write data. Although this was not required, but this would've been a logical next step in order to asses candidate's ability to work with mutations and optimistic updates.

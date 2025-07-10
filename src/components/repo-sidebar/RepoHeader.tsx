@@ -1,6 +1,8 @@
 import type { RepoHeaderFragment$key } from "@/utils/relay/__generated__/RepoHeaderFragment.graphql";
+import type { RepoHeaderStarMutation } from "@/utils/relay/__generated__/RepoHeaderStarMutation.graphql";
+import type { RepoHeaderUnstarMutation } from "@/utils/relay/__generated__/RepoHeaderUnstarMutation.graphql";
 import { GitFork, Star } from "lucide-react";
-import { useFragment } from "react-relay";
+import { useFragment, useMutation } from "react-relay";
 import { graphql } from "relay-runtime";
 
 const RepoHeaderFragment = graphql`
@@ -9,6 +11,7 @@ const RepoHeaderFragment = graphql`
     nameWithOwner
     stargazerCount
     forkCount
+    viewerHasStarred
     owner {
       id
       login
@@ -17,8 +20,58 @@ const RepoHeaderFragment = graphql`
   }
 `;
 
+const RepoHeaderStarMutation = graphql`
+  mutation RepoHeaderStarMutation($repoID: ID!) {
+    addStar(input: { starrableId: $repoID }) {
+      starrable {
+        id
+        viewerHasStarred
+      }
+    }
+  }
+`;
+
+const RepoHeaderUnstarMutation = graphql`
+  mutation RepoHeaderUnstarMutation($repoID: ID!) {
+    removeStar(input: { starrableId: $repoID }) {
+      starrable {
+        id
+        viewerHasStarred
+      }
+    }
+  }
+`;
+
 export default function RepoHeader(props: { repo: RepoHeaderFragment$key }) {
   const repo = useFragment(RepoHeaderFragment, props.repo);
+
+  const [starRepo, starMutationInFlight] = useMutation<RepoHeaderStarMutation>(
+    RepoHeaderStarMutation,
+  );
+  const [unstarRepo, unstarMutationInFlight] =
+    useMutation<RepoHeaderUnstarMutation>(RepoHeaderUnstarMutation);
+
+  function handleStarClick() {
+    const optimisticMutationReponse = {
+      starrable: {
+        __typename: "Repository",
+        id: repo.id,
+        viewerHasStarred: !repo.viewerHasStarred,
+      },
+    };
+
+    if (repo.viewerHasStarred) {
+      unstarRepo({
+        variables: { repoID: repo.id },
+        optimisticResponse: { removeStar: optimisticMutationReponse },
+      });
+    } else {
+      starRepo({
+        variables: { repoID: repo.id },
+        optimisticResponse: { addStar: optimisticMutationReponse },
+      });
+    }
+  }
 
   return (
     <div className="grid grid-cols-[--spacing(20)_1fr] gap-x-4 px-4">
@@ -38,10 +91,18 @@ export default function RepoHeader(props: { repo: RepoHeaderFragment$key }) {
           </a>
         </h1>
         <div className="flex gap-8">
-          <div className="flex gap-1 items-center align-self-top mt-1">
-            <Star fill="orange" stroke="orange" />
+          <button
+            type="button"
+            disabled={starMutationInFlight || unstarMutationInFlight}
+            className="flex gap-1 items-center align-self-top mt-1 cursor-pointer"
+            onClick={handleStarClick}
+          >
+            <Star
+              fill={repo.viewerHasStarred ? "orange" : "transparent"}
+              stroke="orange"
+            />
             {new Intl.NumberFormat().format(repo.stargazerCount)}
-          </div>
+          </button>
           <div className="flex gap-1 items-center align-self-top mt-1">
             <GitFork />
             {new Intl.NumberFormat().format(repo.forkCount)}

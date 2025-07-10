@@ -3,8 +3,12 @@ import Comment, {
   CommentSkeleton,
 } from "@/components/issue-discussion/Comment";
 import CommentList from "@/components/issue-discussion/CommentList";
-import DiscussionHeader from "@/components/issue-discussion/DiscussionHeader";
-import LabelList from "@/components/repo-sidebar/LabelList";
+import DiscussionHeader, {
+  DiscussionHeaderFallback,
+} from "@/components/issue-discussion/DiscussionHeader";
+import LabelList, {
+  LabelListSkeleton,
+} from "@/components/repo-sidebar/LabelList";
 import type { DiscussionQuery } from "@/utils/relay/__generated__/DiscussionQuery.graphql";
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense } from "react";
@@ -19,6 +23,7 @@ export const Route = createFileRoute(
   "/repo/$repositoryID/_discussion/$issueID",
 )({
   component: RouteComponent,
+  pendingComponent: Fallback,
   loader({ context, params }) {
     return loadQuery<DiscussionQuery>(
       context.relayEnvironment,
@@ -61,6 +66,19 @@ function RouteComponent() {
           <Comment comment={data.node.issue} />
           <CommentList issue={data.node.issue} />
         </Suspense>
+      </div>
+    </main>
+  );
+}
+
+function Fallback() {
+  return (
+    <main className="overflow-y-auto max-h-screen">
+      <DiscussionHeaderFallback />
+      <div className="p-8 max-w-4xl mx-auto">
+        <div className="h-5 w-48 bg-stone-200 rounded-sm mt-2" />
+        <LabelListSkeleton className="mt-2" />
+        <CommentSkeleton />
       </div>
     </main>
   );
